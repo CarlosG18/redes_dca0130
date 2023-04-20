@@ -19,6 +19,8 @@
 
 # importacao das bibliotecas
 from socket import * # sockets
+import pickle
+import os
 
 # definicao das variaveis
 serverName = '' # ip do servidor (em branco)
@@ -27,12 +29,22 @@ serverSocket = socket(AF_INET,SOCK_STREAM) # criacao do socket TCP
 serverSocket.bind((serverName,serverPort)) # bind do ip do servidor com a porta
 serverSocket.listen(1) # socket pronto para 'ouvir' conexoes
 print ('Servidor TCP esperando conexoes na porta %d ...' % (serverPort))
+
 while 1:
   connectionSocket, addr = serverSocket.accept() # aceita as conexoes dos clientes
-  sentence = connectionSocket.recv(1024) # recebe dados do cliente
-  sentence = sentence.decode('utf-8')
-  capitalizedSentence = sentence.upper() # converte em letras maiusculas
-  print ('Cliente %s enviou: %s, transformando em: %s' % (addr, sentence, capitalizedSentence))
-  connectionSocket.send(capitalizedSentence.encode('utf-8')) # envia para o cliente o texto transformado
-  connectionSocket.close() # encerra o socket com o cliente
+  recebidos = connectionSocket.recv(2048) # recebe dados do cliente
+  dados = pickle.loads(recebidos)
+  if os.path.exists(dados['arquivo']):
+    arq = open(dados['arquivo'], 'r')
+    if dados['comando'] == "obter":
+      conteudo = arq.read()
+      connectionSocket.send(conteudo.encode('utf-8')) # envia para o cliente o texto transformado
+    else:
+      error = "comando não permitido"
+      connectionSocket.send(error.encode('utf-8')) # envia para o cliente o erro
+  else:
+    error = "arquivo não existe!"
+    connectionSocket.send(error.encode('utf-8')) # envia para o cliente o erro
+    
+connectionSocket.close() # encerra o socket com o cliente
 serverSocket.close() # encerra o socket do servidor

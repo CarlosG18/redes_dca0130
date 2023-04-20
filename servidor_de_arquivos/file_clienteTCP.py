@@ -8,6 +8,7 @@
 
 # importacao das bibliotecas
 from socket import *
+import pickle
 
 # definicao das variaveis
 serverName = 'localhost' # ip do servidor
@@ -15,8 +16,18 @@ serverPort = 61000 # porta a se conectar
 clientSocket = socket(AF_INET,SOCK_STREAM) # criacao do socket TCP
 clientSocket.connect((serverName, serverPort)) # conecta o socket ao servidor
 
-sentence = input('Digite o texto em letras minusculas: ')
-clientSocket.send(sentence.encode('utf-8')) # envia o texto para o servidor
-modifiedSentence = clientSocket.recv(1024) # recebe do servidor a resposta
-print ('O servidor (\'%s\', %d) respondeu com: %s' % (serverName, serverPort, modifiedSentence.decode('utf-8')))
+
+comando = input('Digite o comando: ')
+arquivo = input('Digite o nome do arquivo: ')
+dados = {
+  "comando": comando,
+  "arquivo": arquivo,
+}
+
+#serializar o objeto
+serial_dados = pickle.dumps(dados)
+
+clientSocket.send(serial_dados) # envia o comando para o servidor
+data_file = clientSocket.recv(1024) # recebe do servidor o conteudo do arquivo
+print ('O servidor (\'%s\', %d) respondeu com: %s' % (serverName, serverPort, data_file.decode('utf-8')))
 clientSocket.close() # encerramento o socket do cliente
