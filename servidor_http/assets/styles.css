@@ -17,4 +17,10 @@ body{
   background-color: rgb(211, 235, 229);
   box-shadow: 5px 10px 10px rgb(162, 162, 163);
   margin-bottom: 10px;
+  margin: 20px;
+}
+
+p{
+  margin: 10px 0;
+  text-align: justify;
 }
