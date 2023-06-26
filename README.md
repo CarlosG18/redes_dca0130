@@ -9,3 +9,5 @@ Implementações feitas na disciplina de Redes de Computadores - DCA0130 - UFRN
 ## unidade 2
 
 ## unidade 3
+
+- [pratica de roteamento OSPF](https://github.com/CarlosG18/redes_dca0130/blob/main/roteamento/OSPF.md)
