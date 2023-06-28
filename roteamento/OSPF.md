@@ -53,3 +53,14 @@ após os calculos dos ip's foram obtidos as seguintes faixas:
 | faixa de endereços IP|rede: 98.16.0.0 - broadcast: 98.16.0.15 |rede: 119.1.0.16 - broadcast: 119.1.0.19|rede: 119.1.0.20 - broadcast: 119.1.0.23 |rede: 221.0.0.0 - broadcast: 221.0.0.127 |
 | Máscara de Rede|255.255.255.240|255.255.255.252 |255.255.255.252|255.255.255.128 |
 | Endereço IP do gateway|98.16.0.14| ---- | ---- | 221.0.0.2 |
+
+após obtidos todas as faixas de redes do cenário, foram setados os ips dos roteadores e servidores de acordo com sua rede. 
+
+para iniciarmos o algoritmo de roteamento ospf, precisamos obter o wild card de cada rede. o wildcard seria a mascara "inversa".
+
+- exemplo: calculo do wildcard da rede da casa:
+> tranformamos a mascara da casa para binário: 11111111.11111111.11111111.11110000, substituimos os "0" por "1" e os "1" por "0", temos = 0000000.0000000.0000000.00001111 e retorna-mos para decimal: wildcard = 0.0.0.31
+
+| | CASA | CASA-PROVEDOR | PROVEDOR-INTERNET | INTERNET |
+|:---:|:---:|:---:|:---:|:---:|
+| wildcard | 0.0.0.31 | | | 0.0.0.127|
