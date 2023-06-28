@@ -52,4 +52,4 @@ após os calculos dos ip's foram obtidos as seguintes faixas:
 |:---:|:---:|:---:|:---:|:---:|
 | faixa de endereços IP|rede: 98.16.0.0 - broadcast: 98.16.0.15 |rede: 119.1.0.16 - broadcast: 119.1.0.19|rede: 119.1.0.20 - broadcast: 119.1.0.23 |rede: 221.0.0.0 - broadcast: 221.0.0.127 |
 | Máscara de Rede|255.255.255.240|255.255.255.252 |255.255.255.252|255.255.255.128 |
-| Endereço IP do gateway| | | | |
+| Endereço IP do gateway|98.16.0.14| ---- | ---- | 221.0.0.2 |
