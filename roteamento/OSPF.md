@@ -87,7 +87,7 @@ com isso temos que anunciar a rede de cada roteador para que os outros roteadore
 
 | | ROTEADOR: CASA | ROTEADOR: PROVEDOR-INTERNET | ROTEADOR: INTERNET |
 |:---:|:---:|:---:|:---:|
-| comando | enable  config t  router ospf 1  network 98.16.0.0 0.0.0.15 area 1  network 119.1.0.16 0.0.0.3 area 1| enable 
+| comando | enable /n  config t  router ospf 1  network 98.16.0.0 0.0.0.15 area 1  network 119.1.0.16 0.0.0.3 area 1| enable 
 config t
 router ospf 1
 network 119.1.0.16 0.0.0.3 area 1
