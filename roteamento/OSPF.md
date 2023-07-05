@@ -59,8 +59,8 @@ após obtidos todas as faixas de redes do cenário, foram setados os ips dos rot
 para iniciarmos o algoritmo de roteamento ospf, precisamos obter o wild card de cada rede. o wildcard seria a mascara "inversa".
 
 - exemplo: calculo do wildcard da rede da casa:
-> tranformamos a mascara da casa para binário: 11111111.11111111.11111111.11110000, substituimos os "0" por "1" e os "1" por "0", temos = 0000000.0000000.0000000.00001111 e retorna-mos para decimal: wildcard = 0.0.0.31
+> tranformamos a mascara da casa para binário: 11111111.11111111.11111111.11110000, substituimos os "0" por "1" e os "1" por "0", temos = 0000000.0000000.0000000.00001111 e retorna-mos para decimal: wildcard = 0.0.0.15
 
 | | CASA | CASA-PROVEDOR | PROVEDOR-INTERNET | INTERNET |
 |:---:|:---:|:---:|:---:|:---:|
-| wildcard | 0.0.0.31 | | | 0.0.0.127|
+| wildcard | 0.0.0.15 | 0.0.0.3 | 0.0.0.3 | 0.0.0.127|
