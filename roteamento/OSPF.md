@@ -56,6 +56,17 @@ após os calculos dos ip's foram obtidos as seguintes faixas:
 
 após obtidos todas as faixas de redes do cenário, foram setados os ips dos roteadores e servidores de acordo com sua rede. 
 
+## configurando o servidor DHCP
+
+o protocolo DHCP é um serviço TCP/IP que fornece ip's de forma automatica. para configurar o servidor DHCP basta ir na aba `services - DHCP` e colocar os seguintes dados:
+- default gateway: ip do roteador "ponte";
+- default DNS: se esse servidor for tambem um servidor DNS voce deverá colocar o ip do proprio server.
+- ip de rede ao qual serão atribuidos os ip's automaticos;
+- mascara desse ip de rede;
+- número maximo de usuarios que deverão receber os ip's automáticos.
+
+## configurando os roteadores (comandos de roteamento ospf)
+
 para iniciarmos o algoritmo de roteamento ospf, precisamos obter o wild card de cada rede. o wildcard seria a mascara "inversa".
 
 - exemplo: calculo do wildcard da rede da casa:
@@ -64,3 +75,39 @@ para iniciarmos o algoritmo de roteamento ospf, precisamos obter o wild card de 
 | | CASA | CASA-PROVEDOR | PROVEDOR-INTERNET | INTERNET |
 |:---:|:---:|:---:|:---:|:---:|
 | wildcard | 0.0.0.15 | 0.0.0.3 | 0.0.0.3 | 0.0.0.127|
+
+com isso temos que anunciar a rede de cada roteador para que os outros roteadores presentes no restante do cenario aprendam para qual roteador deve ser enviado. para isso usamos os seguintes comandos no CLI de cada roteador, seguindo a estrutura abaixo:
+
+```txt
+  enable // habilitar o terminal
+  config t // entrado nas configurações do roteador
+  router ospf 1 // definindo uma rota ospf com um determinado numero de processo
+  network [ip de rede] [wildcard] area [numero da area] // anunciando as redes em que o roteador participa
+```
+
+| | ROTEADOR: CASA | ROTEADOR: PROVEDOR-INTERNET | ROTEADOR: INTERNET |
+|:---:|:---:|:---:|:---:|
+| comando | 
+enable 
+config t
+router ospf 1
+network 98.16.0.0 0.0.0.15 area 1
+network 119.1.0.16 0.0.0.3 area 1
+ | 
+enable 
+config t
+router ospf 1
+network 119.1.0.16 0.0.0.3 area 1
+network 119.1.0.20 0.0.0.3 area 1
+ | 
+enable 
+config t
+router ospf 1
+network 119.1.0.20 0.0.0.3 area 1
+network 221.0.0.0 0.0.0.127 area 1
+end
+|
+
+## configurando o server do DNS para resolver www.google.com
+
+para configurar o server DNS, você deve adicionar o nome na aba `services`, indicando o nome do dominio e o ip do server que esta abrigando a pagina. após isso, você deve adicionar a maquina o ip do server DNS. você deverá colocar o ip do server que contem o serviço de DNS. no nosso exemplo, será o server localizado na região `casa`
