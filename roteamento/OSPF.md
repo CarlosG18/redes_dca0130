@@ -87,26 +87,20 @@ com isso temos que anunciar a rede de cada roteador para que os outros roteadore
 
 | | ROTEADOR: CASA | ROTEADOR: PROVEDOR-INTERNET | ROTEADOR: INTERNET |
 |:---:|:---:|:---:|:---:|
-| comando | 
-enable 
+| comando | enable 
 config t
 router ospf 1
 network 98.16.0.0 0.0.0.15 area 1
-network 119.1.0.16 0.0.0.3 area 1
- | 
-enable 
+network 119.1.0.16 0.0.0.3 area 1| enable 
 config t
 router ospf 1
 network 119.1.0.16 0.0.0.3 area 1
-network 119.1.0.20 0.0.0.3 area 1
- | 
-enable 
+network 119.1.0.20 0.0.0.3 area 1| enable 
 config t
 router ospf 1
 network 119.1.0.20 0.0.0.3 area 1
 network 221.0.0.0 0.0.0.127 area 1
-end
-|
+end |
 
 ## configurando o server do DNS para resolver www.google.com
 
